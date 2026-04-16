@@ -1,5 +1,5 @@
 'use strict';
-
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('tbb_productos', {
@@ -18,22 +18,22 @@ module.exports = {
         allowNull: false
       },
       precio: {
-        type: Sequelize.DECIMAL(10,2),
+        type: Sequelize.DECIMAL(10, 2),
         allowNull: false
       },
       stock: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      categoriaId: {
+      id_categoria: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull:false,
         references: {
           model: 'tbc_categorias',
           key: 'id'
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onUpdate: 'NO ACTION',
+        onDelete: 'NO ACTION'
       },
       createdAt: {
         allowNull: false,
@@ -45,8 +45,7 @@ module.exports = {
       }
     });
   },
-
-  async down(queryInterface) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('tbb_productos');
   }
 };

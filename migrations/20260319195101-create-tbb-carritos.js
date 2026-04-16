@@ -1,5 +1,5 @@
 'use strict';
-
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('tbb_carritos', {
@@ -9,18 +9,26 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      usuarioId: {
+      total: {
+        type: Sequelize.DECIMAL(10, 2),
+        allowNull: false
+      },
+      id_usuario: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'tbc_usuarios',
-          key: 'id'
+          key: 'id',
         },
         onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
       },
-      total: {
-        type: Sequelize.DECIMAL(10,2),
+      estado: {
+        type: Sequelize.STRING(50),
+        allowNull: false
+      },
+      fecha_creacion: {
+        type: Sequelize.DATE,
         allowNull: false
       },
       createdAt: {
@@ -33,8 +41,7 @@ module.exports = {
       }
     });
   },
-
-  async down(queryInterface) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('tbb_carritos');
   }
 };

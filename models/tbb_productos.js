@@ -1,16 +1,13 @@
 'use strict';
-const { Model } = require('sequelize');
-
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class tbb_productos extends Model {
     static associate(models) {
-      tbb_productos.belongsTo(models.tbc_categorias, {
-        as: 'categoria',
-        foreignKey: 'categoriaId'
-      });
+      // define association here
     }
   }
-
   tbb_productos.init({
     nombre: {
       type: DataTypes.STRING(100),
@@ -25,18 +22,35 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     stock: {
-      type: DataTypes.INTEGER, // 🔥 mejor INTEGER que DECIMAL
+      type: DataTypes.INTEGER,
       allowNull: false
     },
-    categoriaId: { // 🔥 IMPORTANTE
+    imagen: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    id_categoria: {
       type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {
     sequelize,
     modelName: 'tbb_productos',
-    tableName: 'tbb_productos'
   });
 
+  tbb_productos.associate = function(models) {
+    tbb_productos.belongsTo(models.tbc_categorias,
+    {
+      as: 'tbc_categorias',
+      foreignKey: 'id_categoria',
+    }
+  );
+
+    tbb_productos.hasMany(models.tbd_carrito_detalle, {
+      as: 'detalles_carrito',
+      foreignKey: 'id_producto',
+    });
+
+  };
   return tbb_productos;
 };

@@ -1,22 +1,22 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
-    "port": "3307"
+    "password": "1234",
+    "database": "db_tiendavirtual",
+    "host": "localhost",
+    "port": 3307,
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": null,
+    "password": "1234",
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": null,
+    "password": "1234",
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"

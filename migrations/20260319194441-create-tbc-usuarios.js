@@ -1,5 +1,5 @@
 'use strict';
-
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('tbc_usuarios', {
@@ -11,23 +11,32 @@ module.exports = {
       },
       nombre: {
         type: Sequelize.STRING(100),
-        allowNull: false
+        allowNull:false
       },
       direccion: {
         type: Sequelize.STRING(200),
-        allowNull: false
+         allowNull:false
       },
       telefono: {
         type: Sequelize.STRING(15),
-        allowNull: false
+         allowNull:false
       },
       email: {
         type: Sequelize.STRING(120),
-        allowNull: false
+         allowNull:false
+      },
+      password: {
+        type: Sequelize.STRING(255),
+         allowNull:false
       },
       rol: {
-        type: Sequelize.ENUM('admin', 'client'),
-        allowNull: false
+        type: Sequelize.ENUM('admin', 'cliente'),
+        allowNull:false,
+        defaultValue: 'cliente'
+      },
+      fecha_registro: {
+        type: Sequelize.DATE,
+        allowNull:false
       },
       createdAt: {
         allowNull: false,
@@ -39,7 +48,6 @@ module.exports = {
       }
     });
   },
-
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('tbc_usuarios');
   }

@@ -1,5 +1,5 @@
 'use strict';
-
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('tbc_categorias', {
@@ -13,10 +13,6 @@ module.exports = {
         type: Sequelize.STRING(100),
         allowNull: false
       },
-      descripcion: {
-        type: Sequelize.STRING(200),
-        allowNull: false
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -27,8 +23,7 @@ module.exports = {
       }
     });
   },
-
-  async down(queryInterface) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('tbc_categorias');
   }
 };
