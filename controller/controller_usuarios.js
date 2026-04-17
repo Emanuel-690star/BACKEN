@@ -169,7 +169,13 @@ module.exports = {
             );
 
             return res.status(200).send({
-                token: token
+                token,
+                user: {
+                    id: usuarioItem.id,
+                    email: usuarioItem.email,
+                    rol: usuarioItem.rol,
+                    nombre: usuarioItem.nombre,
+                },
             });
 
         })
