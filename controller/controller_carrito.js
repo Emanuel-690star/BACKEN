@@ -1,5 +1,21 @@
-const Sequelize = require('sequelize');
-const carrito = require('../models').tbb_carritos;
+const {
+    tbb_carritos: carrito,
+    tbd_carrito_detalle: carritoDetalle,
+    tbb_productos: producto,
+} = require('../models');
+
+const carritoInclude = [
+    {
+        model: carritoDetalle,
+        as: 'detalles',
+        include: [
+            {
+                model: producto,
+                as: 'producto',
+            },
+        ],
+    },
+];
 
 module.exports = {
     create(req, res){
@@ -14,7 +30,10 @@ module.exports = {
         .catch(error => res.status(400).send(error));
     },
     list(_, res){
-        return carrito.findAll()
+        return carrito.findAll({
+            include: carritoInclude,
+            order: [['id', 'ASC']],
+        })
         .then(carritos => res.status(200).send(carritos))
         .catch(error => res.status(400).send(error));
     },
@@ -22,7 +41,9 @@ module.exports = {
         const id = req.params.id;
 
         if (id) {
-            return carrito.findByPk(id)
+            return carrito.findByPk(id, {
+                include: carritoInclude,
+            })
             .then(carritoItem => {
                 if (!carritoItem) {
                     return res.status(404).send({message: 'Carrito no encontrado'});

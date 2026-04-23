@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'tbd_carrito_detalle',
+    tableName: 'tbd_carrito_detalle',
   });
 
   tbd_carrito_detalle.associate = function(models) {
